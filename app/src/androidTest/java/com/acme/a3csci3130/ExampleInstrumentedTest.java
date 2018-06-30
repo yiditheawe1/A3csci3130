@@ -44,12 +44,6 @@ public class ExampleInstrumentedTest {
             new ActivityTestRule(MainActivity.class);
     private MainActivity mainActivity;
 
-    @Before
-    public void setUp() throws InterruptedException {
-        mainActivity = mActivityRule.getActivity();
-        mDatabase = FirebaseDatabase.getInstance().getReference("contacts");
-        mDatabase.removeValue();
-    }
 
     //@Test
     public void useAppContext() throws Exception {
@@ -73,6 +67,7 @@ public class ExampleInstrumentedTest {
         Espresso.onView(withId(R.id.submitButton)).perform(click());
         //Thread.sleep(200);
         Espresso.onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(0).check(matches(isDisplayed()));
+
     }
 
     @Test
@@ -85,7 +80,7 @@ public class ExampleInstrumentedTest {
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(0).equals(null);
     }
 
-    //@Test
+    @Test
     public  void b_updateContact() throws InterruptedException{
         Thread.sleep(1000);
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(0).perform(click());
